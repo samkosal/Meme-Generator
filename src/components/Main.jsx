@@ -15,7 +15,7 @@ export default function Main() {
         .then(res => res.json())
         .then(data => setAllMemes(data.data.memes))
     }, []);
-
+    console.log(allMemes)
 
 
     function handleChange(event) {
@@ -26,6 +26,16 @@ export default function Main() {
         }))
         console.log(value)
     }
+
+    function getMemeImage() {
+        const randomNumber = Math.floor(Math.random() * allMemes.length)
+        const newMemeUrl = allMemes[randomNumber].url
+        setMeme(prevMeme => ({
+            ...prevMeme,
+            imageURL: newMemeUrl
+        }))
+    }
+    
     return (
         <main>
             <div className="form">
@@ -48,7 +58,9 @@ export default function Main() {
                         value={meme.bottomText}
                     />
                 </label>
-                <button>Get a new meme image 🖼</button>
+                <button
+                    onClick={getMemeImage}
+                >Get a new meme image 🖼</button>
             </div>
             <div className="meme">
                 <img src={meme.imageURL} />
